@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.sellitem.SellitemMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Sellitem" >
+    <id column="SellItem" property="sellitem" jdbcType="INTEGER" />
+    <result column="SellAccountId" property="sellaccountid" jdbcType="VARCHAR" />
+    <result column="MedicineID" property="medicineid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SellItem, SellAccountId, MedicineID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.SellitemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sellitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sellitem
+    where SellItem = #{sellitem,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sellitem
+    where SellItem = #{sellitem,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.SellitemExample" >
+    delete from sellitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Sellitem" >
+    insert into sellitem (SellItem, SellAccountId, MedicineID
+      )
+    values (#{sellitem,jdbcType=INTEGER}, #{sellaccountid,jdbcType=VARCHAR}, #{medicineid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Sellitem" >
+    insert into sellitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellitem != null" >
+        SellItem,
+      </if>
+      <if test="sellaccountid != null" >
+        SellAccountId,
+      </if>
+      <if test="medicineid != null" >
+        MedicineID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellitem != null" >
+        #{sellitem,jdbcType=INTEGER},
+      </if>
+      <if test="sellaccountid != null" >
+        #{sellaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicineid != null" >
+        #{medicineid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.SellitemExample" resultType="java.lang.Integer" >
+    select count(*) from sellitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sellitem
+    <set >
+      <if test="record.sellitem != null" >
+        SellItem = #{record.sellitem,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellaccountid != null" >
+        SellAccountId = #{record.sellaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicineid != null" >
+        MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sellitem
+    set SellItem = #{record.sellitem,jdbcType=INTEGER},
+      SellAccountId = #{record.sellaccountid,jdbcType=VARCHAR},
+      MedicineID = #{record.medicineid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Sellitem" >
+    update sellitem
+    <set >
+      <if test="sellaccountid != null" >
+        SellAccountId = #{sellaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicineid != null" >
+        MedicineID = #{medicineid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SellItem = #{sellitem,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Sellitem" >
+    update sellitem
+    set SellAccountId = #{sellaccountid,jdbcType=VARCHAR},
+      MedicineID = #{medicineid,jdbcType=INTEGER}
+    where SellItem = #{sellitem,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry location="G:\mysql-connector-java-5.1.25-bin.jar" />
+	<!-- 药品剂型表 -->
+	<context id="Dosageforms" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true"></property>
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/drug_db?useUnicode"
+			userId="root" password="root"></jdbcConnection>
+		<javaModelGenerator targetPackage="com.sky.pojo"
+			targetProject="SkyHospital/src">
+			<property name="trimStrings" value="true"></property>
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="com.sky.dao.dosageforms"
+			targetProject="SkyHospital/src"></sqlMapGenerator>
+		<javaClientGenerator targetPackage="com.sky.dao.dosageforms"
+			type="XMLMAPPER" targetProject="SkyHospital/src"></javaClientGenerator>
+		<table tableName="dosageforms" domainObjectName="Dosageforms"
+			enableSelectByExample="true" enableDeleteByExample="true"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableInsert="true"></table>
+	</context>
+</generatorConfiguration>

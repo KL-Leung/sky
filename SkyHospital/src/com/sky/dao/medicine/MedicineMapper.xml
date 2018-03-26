@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.medicine.MedicineMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Medicine" >
+    <id column="MedicineID" property="medicineid" jdbcType="INTEGER" />
+    <result column="MedicineName" property="medicinename" jdbcType="VARCHAR" />
+    <result column="CommonName" property="commonname" jdbcType="VARCHAR" />
+    <result column="Specification" property="specification" jdbcType="VARCHAR" />
+    <result column="ManufacturerID" property="manufacturerid" jdbcType="INTEGER" />
+    <result column="UnitID" property="unitid" jdbcType="INTEGER" />
+    <result column="DosageFormsID" property="dosageformsid" jdbcType="INTEGER" />
+    <result column="GoodsKindID" property="goodskindid" jdbcType="INTEGER" />
+    <result column="MCKID" property="mckid" jdbcType="INTEGER" />
+    <result column="TinyUnitId" property="tinyunitid" jdbcType="INTEGER" />
+    <result column="ModifierId" property="modifierid" jdbcType="VARCHAR" />
+    <result column="MedicineKindID" property="medicinekindid" jdbcType="INTEGER" />
+    <result column="TinyNumber" property="tinynumber" jdbcType="INTEGER" />
+    <result column="TinySpecification" property="tinyspecification" jdbcType="VARCHAR" />
+    <result column="BarCode" property="barcode" jdbcType="VARCHAR" />
+    <result column="RetailStdPrice" property="retailstdprice" jdbcType="DECIMAL" />
+    <result column="PurchasePrice" property="purchaseprice" jdbcType="DECIMAL" />
+    <result column="SalePrice" property="saleprice" jdbcType="DECIMAL" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="StandardCode" property="standardcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MedicineID, MedicineName, CommonName, Specification, ManufacturerID, UnitID, DosageFormsID, 
+    GoodsKindID, MCKID, TinyUnitId, ModifierId, MedicineKindID, TinyNumber, TinySpecification, 
+    BarCode, RetailStdPrice, PurchasePrice, SalePrice, Comment, StandardCode
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.MedicineExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from medicine
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from medicine
+    where MedicineID = #{medicineid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from medicine
+    where MedicineID = #{medicineid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.MedicineExample" >
+    delete from medicine
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Medicine" >
+    insert into medicine (MedicineID, MedicineName, CommonName, 
+      Specification, ManufacturerID, UnitID, 
+      DosageFormsID, GoodsKindID, MCKID, 
+      TinyUnitId, ModifierId, MedicineKindID, 
+      TinyNumber, TinySpecification, BarCode, 
+      RetailStdPrice, PurchasePrice, SalePrice, 
+      Comment, StandardCode)
+    values (#{medicineid,jdbcType=INTEGER}, #{medicinename,jdbcType=VARCHAR}, #{commonname,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{manufacturerid,jdbcType=INTEGER}, #{unitid,jdbcType=INTEGER}, 
+      #{dosageformsid,jdbcType=INTEGER}, #{goodskindid,jdbcType=INTEGER}, #{mckid,jdbcType=INTEGER}, 
+      #{tinyunitid,jdbcType=INTEGER}, #{modifierid,jdbcType=VARCHAR}, #{medicinekindid,jdbcType=INTEGER}, 
+      #{tinynumber,jdbcType=INTEGER}, #{tinyspecification,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, 
+      #{retailstdprice,jdbcType=DECIMAL}, #{purchaseprice,jdbcType=DECIMAL}, #{saleprice,jdbcType=DECIMAL}, 
+      #{comment,jdbcType=VARCHAR}, #{standardcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Medicine" >
+    insert into medicine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medicineid != null" >
+        MedicineID,
+      </if>
+      <if test="medicinename != null" >
+        MedicineName,
+      </if>
+      <if test="commonname != null" >
+        CommonName,
+      </if>
+      <if test="specification != null" >
+        Specification,
+      </if>
+      <if test="manufacturerid != null" >
+        ManufacturerID,
+      </if>
+      <if test="unitid != null" >
+        UnitID,
+      </if>
+      <if test="dosageformsid != null" >
+        DosageFormsID,
+      </if>
+      <if test="goodskindid != null" >
+        GoodsKindID,
+      </if>
+      <if test="mckid != null" >
+        MCKID,
+      </if>
+      <if test="tinyunitid != null" >
+        TinyUnitId,
+      </if>
+      <if test="modifierid != null" >
+        ModifierId,
+      </if>
+      <if test="medicinekindid != null" >
+        MedicineKindID,
+      </if>
+      <if test="tinynumber != null" >
+        TinyNumber,
+      </if>
+      <if test="tinyspecification != null" >
+        TinySpecification,
+      </if>
+      <if test="barcode != null" >
+        BarCode,
+      </if>
+      <if test="retailstdprice != null" >
+        RetailStdPrice,
+      </if>
+      <if test="purchaseprice != null" >
+        PurchasePrice,
+      </if>
+      <if test="saleprice != null" >
+        SalePrice,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="standardcode != null" >
+        StandardCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medicineid != null" >
+        #{medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="medicinename != null" >
+        #{medicinename,jdbcType=VARCHAR},
+      </if>
+      <if test="commonname != null" >
+        #{commonname,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerid != null" >
+        #{manufacturerid,jdbcType=INTEGER},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=INTEGER},
+      </if>
+      <if test="dosageformsid != null" >
+        #{dosageformsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodskindid != null" >
+        #{goodskindid,jdbcType=INTEGER},
+      </if>
+      <if test="mckid != null" >
+        #{mckid,jdbcType=INTEGER},
+      </if>
+      <if test="tinyunitid != null" >
+        #{tinyunitid,jdbcType=INTEGER},
+      </if>
+      <if test="modifierid != null" >
+        #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicinekindid != null" >
+        #{medicinekindid,jdbcType=INTEGER},
+      </if>
+      <if test="tinynumber != null" >
+        #{tinynumber,jdbcType=INTEGER},
+      </if>
+      <if test="tinyspecification != null" >
+        #{tinyspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="retailstdprice != null" >
+        #{retailstdprice,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseprice != null" >
+        #{purchaseprice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="standardcode != null" >
+        #{standardcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.MedicineExample" resultType="java.lang.Integer" >
+    select count(*) from medicine
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update medicine
+    <set >
+      <if test="record.medicineid != null" >
+        MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicinename != null" >
+        MedicineName = #{record.medicinename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonname != null" >
+        CommonName = #{record.commonname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null" >
+        Specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturerid != null" >
+        ManufacturerID = #{record.manufacturerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.unitid != null" >
+        UnitID = #{record.unitid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dosageformsid != null" >
+        DosageFormsID = #{record.dosageformsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodskindid != null" >
+        GoodsKindID = #{record.goodskindid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mckid != null" >
+        MCKID = #{record.mckid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tinyunitid != null" >
+        TinyUnitId = #{record.tinyunitid,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifierid != null" >
+        ModifierId = #{record.modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicinekindid != null" >
+        MedicineKindID = #{record.medicinekindid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tinynumber != null" >
+        TinyNumber = #{record.tinynumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.tinyspecification != null" >
+        TinySpecification = #{record.tinyspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.barcode != null" >
+        BarCode = #{record.barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retailstdprice != null" >
+        RetailStdPrice = #{record.retailstdprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.purchaseprice != null" >
+        PurchasePrice = #{record.purchaseprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleprice != null" >
+        SalePrice = #{record.saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comment != null" >
+        Comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standardcode != null" >
+        StandardCode = #{record.standardcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update medicine
+    set MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      MedicineName = #{record.medicinename,jdbcType=VARCHAR},
+      CommonName = #{record.commonname,jdbcType=VARCHAR},
+      Specification = #{record.specification,jdbcType=VARCHAR},
+      ManufacturerID = #{record.manufacturerid,jdbcType=INTEGER},
+      UnitID = #{record.unitid,jdbcType=INTEGER},
+      DosageFormsID = #{record.dosageformsid,jdbcType=INTEGER},
+      GoodsKindID = #{record.goodskindid,jdbcType=INTEGER},
+      MCKID = #{record.mckid,jdbcType=INTEGER},
+      TinyUnitId = #{record.tinyunitid,jdbcType=INTEGER},
+      ModifierId = #{record.modifierid,jdbcType=VARCHAR},
+      MedicineKindID = #{record.medicinekindid,jdbcType=INTEGER},
+      TinyNumber = #{record.tinynumber,jdbcType=INTEGER},
+      TinySpecification = #{record.tinyspecification,jdbcType=VARCHAR},
+      BarCode = #{record.barcode,jdbcType=VARCHAR},
+      RetailStdPrice = #{record.retailstdprice,jdbcType=DECIMAL},
+      PurchasePrice = #{record.purchaseprice,jdbcType=DECIMAL},
+      SalePrice = #{record.saleprice,jdbcType=DECIMAL},
+      Comment = #{record.comment,jdbcType=VARCHAR},
+      StandardCode = #{record.standardcode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Medicine" >
+    update medicine
+    <set >
+      <if test="medicinename != null" >
+        MedicineName = #{medicinename,jdbcType=VARCHAR},
+      </if>
+      <if test="commonname != null" >
+        CommonName = #{commonname,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        Specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerid != null" >
+        ManufacturerID = #{manufacturerid,jdbcType=INTEGER},
+      </if>
+      <if test="unitid != null" >
+        UnitID = #{unitid,jdbcType=INTEGER},
+      </if>
+      <if test="dosageformsid != null" >
+        DosageFormsID = #{dosageformsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodskindid != null" >
+        GoodsKindID = #{goodskindid,jdbcType=INTEGER},
+      </if>
+      <if test="mckid != null" >
+        MCKID = #{mckid,jdbcType=INTEGER},
+      </if>
+      <if test="tinyunitid != null" >
+        TinyUnitId = #{tinyunitid,jdbcType=INTEGER},
+      </if>
+      <if test="modifierid != null" >
+        ModifierId = #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicinekindid != null" >
+        MedicineKindID = #{medicinekindid,jdbcType=INTEGER},
+      </if>
+      <if test="tinynumber != null" >
+        TinyNumber = #{tinynumber,jdbcType=INTEGER},
+      </if>
+      <if test="tinyspecification != null" >
+        TinySpecification = #{tinyspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        BarCode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="retailstdprice != null" >
+        RetailStdPrice = #{retailstdprice,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseprice != null" >
+        PurchasePrice = #{purchaseprice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        SalePrice = #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="standardcode != null" >
+        StandardCode = #{standardcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MedicineID = #{medicineid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Medicine" >
+    update medicine
+    set MedicineName = #{medicinename,jdbcType=VARCHAR},
+      CommonName = #{commonname,jdbcType=VARCHAR},
+      Specification = #{specification,jdbcType=VARCHAR},
+      ManufacturerID = #{manufacturerid,jdbcType=INTEGER},
+      UnitID = #{unitid,jdbcType=INTEGER},
+      DosageFormsID = #{dosageformsid,jdbcType=INTEGER},
+      GoodsKindID = #{goodskindid,jdbcType=INTEGER},
+      MCKID = #{mckid,jdbcType=INTEGER},
+      TinyUnitId = #{tinyunitid,jdbcType=INTEGER},
+      ModifierId = #{modifierid,jdbcType=VARCHAR},
+      MedicineKindID = #{medicinekindid,jdbcType=INTEGER},
+      TinyNumber = #{tinynumber,jdbcType=INTEGER},
+      TinySpecification = #{tinyspecification,jdbcType=VARCHAR},
+      BarCode = #{barcode,jdbcType=VARCHAR},
+      RetailStdPrice = #{retailstdprice,jdbcType=DECIMAL},
+      PurchasePrice = #{purchaseprice,jdbcType=DECIMAL},
+      SalePrice = #{saleprice,jdbcType=DECIMAL},
+      Comment = #{comment,jdbcType=VARCHAR},
+      StandardCode = #{standardcode,jdbcType=VARCHAR}
+    where MedicineID = #{medicineid,jdbcType=INTEGER}
+  </update>
+</mapper>

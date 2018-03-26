@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SkyHospital"
+  id="myeclipse.1521015406308"
+  context-root="/SkyHospital"
+  j2ee-spec="5.0"
+  archive="SkyHospital.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

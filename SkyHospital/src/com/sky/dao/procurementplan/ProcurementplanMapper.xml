@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.procurementplan.ProcurementplanMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Procurementplan" >
+    <id column="PPID" property="ppid" jdbcType="INTEGER" />
+    <result column="MedicineID" property="medicineid" jdbcType="INTEGER" />
+    <result column="Lower" property="lower" jdbcType="INTEGER" />
+    <result column="PPNumber" property="ppnumber" jdbcType="INTEGER" />
+    <result column="PPOrganization" property="pporganization" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PPID, MedicineID, Lower, PPNumber, PPOrganization
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.ProcurementplanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from procurementplan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from procurementplan
+    where PPID = #{ppid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from procurementplan
+    where PPID = #{ppid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.ProcurementplanExample" >
+    delete from procurementplan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Procurementplan" >
+    insert into procurementplan (PPID, MedicineID, Lower, 
+      PPNumber, PPOrganization)
+    values (#{ppid,jdbcType=INTEGER}, #{medicineid,jdbcType=INTEGER}, #{lower,jdbcType=INTEGER}, 
+      #{ppnumber,jdbcType=INTEGER}, #{pporganization,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Procurementplan" >
+    insert into procurementplan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ppid != null" >
+        PPID,
+      </if>
+      <if test="medicineid != null" >
+        MedicineID,
+      </if>
+      <if test="lower != null" >
+        Lower,
+      </if>
+      <if test="ppnumber != null" >
+        PPNumber,
+      </if>
+      <if test="pporganization != null" >
+        PPOrganization,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ppid != null" >
+        #{ppid,jdbcType=INTEGER},
+      </if>
+      <if test="medicineid != null" >
+        #{medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="lower != null" >
+        #{lower,jdbcType=INTEGER},
+      </if>
+      <if test="ppnumber != null" >
+        #{ppnumber,jdbcType=INTEGER},
+      </if>
+      <if test="pporganization != null" >
+        #{pporganization,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.ProcurementplanExample" resultType="java.lang.Integer" >
+    select count(*) from procurementplan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update procurementplan
+    <set >
+      <if test="record.ppid != null" >
+        PPID = #{record.ppid,jdbcType=INTEGER},
+      </if>
+      <if test="record.medicineid != null" >
+        MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lower != null" >
+        Lower = #{record.lower,jdbcType=INTEGER},
+      </if>
+      <if test="record.ppnumber != null" >
+        PPNumber = #{record.ppnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.pporganization != null" >
+        PPOrganization = #{record.pporganization,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update procurementplan
+    set PPID = #{record.ppid,jdbcType=INTEGER},
+      MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      Lower = #{record.lower,jdbcType=INTEGER},
+      PPNumber = #{record.ppnumber,jdbcType=INTEGER},
+      PPOrganization = #{record.pporganization,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Procurementplan" >
+    update procurementplan
+    <set >
+      <if test="medicineid != null" >
+        MedicineID = #{medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="lower != null" >
+        Lower = #{lower,jdbcType=INTEGER},
+      </if>
+      <if test="ppnumber != null" >
+        PPNumber = #{ppnumber,jdbcType=INTEGER},
+      </if>
+      <if test="pporganization != null" >
+        PPOrganization = #{pporganization,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PPID = #{ppid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Procurementplan" >
+    update procurementplan
+    set MedicineID = #{medicineid,jdbcType=INTEGER},
+      Lower = #{lower,jdbcType=INTEGER},
+      PPNumber = #{ppnumber,jdbcType=INTEGER},
+      PPOrganization = #{pporganization,jdbcType=VARCHAR}
+    where PPID = #{ppid,jdbcType=INTEGER}
+  </update>
+</mapper>

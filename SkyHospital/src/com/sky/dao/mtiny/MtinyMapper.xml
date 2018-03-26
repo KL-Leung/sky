@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.mtiny.MtinyMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Mtiny" >
+    <id column="MTID" property="mtid" jdbcType="INTEGER" />
+    <result column="SAItemId" property="saitemid" jdbcType="INTEGER" />
+    <result column="UnitID" property="unitid" jdbcType="INTEGER" />
+    <result column="TinySpecification" property="tinyspecification" jdbcType="VARCHAR" />
+    <result column="Number" property="number" jdbcType="INTEGER" />
+    <result column="CostPrice" property="costprice" jdbcType="DECIMAL" />
+    <result column="SalePrice" property="saleprice" jdbcType="DECIMAL" />
+    <result column="TinyDate" property="tinydate" jdbcType="DATE" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MTID, SAItemId, UnitID, TinySpecification, Number, CostPrice, SalePrice, TinyDate, 
+    Comment
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.MtinyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mtiny
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mtiny
+    where MTID = #{mtid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mtiny
+    where MTID = #{mtid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.MtinyExample" >
+    delete from mtiny
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Mtiny" >
+    insert into mtiny (MTID, SAItemId, UnitID, 
+      TinySpecification, Number, CostPrice, 
+      SalePrice, TinyDate, Comment
+      )
+    values (#{mtid,jdbcType=INTEGER}, #{saitemid,jdbcType=INTEGER}, #{unitid,jdbcType=INTEGER}, 
+      #{tinyspecification,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{costprice,jdbcType=DECIMAL}, 
+      #{saleprice,jdbcType=DECIMAL}, #{tinydate,jdbcType=DATE}, #{comment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Mtiny" >
+    insert into mtiny
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mtid != null" >
+        MTID,
+      </if>
+      <if test="saitemid != null" >
+        SAItemId,
+      </if>
+      <if test="unitid != null" >
+        UnitID,
+      </if>
+      <if test="tinyspecification != null" >
+        TinySpecification,
+      </if>
+      <if test="number != null" >
+        Number,
+      </if>
+      <if test="costprice != null" >
+        CostPrice,
+      </if>
+      <if test="saleprice != null" >
+        SalePrice,
+      </if>
+      <if test="tinydate != null" >
+        TinyDate,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mtid != null" >
+        #{mtid,jdbcType=INTEGER},
+      </if>
+      <if test="saitemid != null" >
+        #{saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=INTEGER},
+      </if>
+      <if test="tinyspecification != null" >
+        #{tinyspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="costprice != null" >
+        #{costprice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="tinydate != null" >
+        #{tinydate,jdbcType=DATE},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.MtinyExample" resultType="java.lang.Integer" >
+    select count(*) from mtiny
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mtiny
+    <set >
+      <if test="record.mtid != null" >
+        MTID = #{record.mtid,jdbcType=INTEGER},
+      </if>
+      <if test="record.saitemid != null" >
+        SAItemId = #{record.saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="record.unitid != null" >
+        UnitID = #{record.unitid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tinyspecification != null" >
+        TinySpecification = #{record.tinyspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        Number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.costprice != null" >
+        CostPrice = #{record.costprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleprice != null" >
+        SalePrice = #{record.saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tinydate != null" >
+        TinyDate = #{record.tinydate,jdbcType=DATE},
+      </if>
+      <if test="record.comment != null" >
+        Comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mtiny
+    set MTID = #{record.mtid,jdbcType=INTEGER},
+      SAItemId = #{record.saitemid,jdbcType=INTEGER},
+      UnitID = #{record.unitid,jdbcType=INTEGER},
+      TinySpecification = #{record.tinyspecification,jdbcType=VARCHAR},
+      Number = #{record.number,jdbcType=INTEGER},
+      CostPrice = #{record.costprice,jdbcType=DECIMAL},
+      SalePrice = #{record.saleprice,jdbcType=DECIMAL},
+      TinyDate = #{record.tinydate,jdbcType=DATE},
+      Comment = #{record.comment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Mtiny" >
+    update mtiny
+    <set >
+      <if test="saitemid != null" >
+        SAItemId = #{saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="unitid != null" >
+        UnitID = #{unitid,jdbcType=INTEGER},
+      </if>
+      <if test="tinyspecification != null" >
+        TinySpecification = #{tinyspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        Number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="costprice != null" >
+        CostPrice = #{costprice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        SalePrice = #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="tinydate != null" >
+        TinyDate = #{tinydate,jdbcType=DATE},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MTID = #{mtid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Mtiny" >
+    update mtiny
+    set SAItemId = #{saitemid,jdbcType=INTEGER},
+      UnitID = #{unitid,jdbcType=INTEGER},
+      TinySpecification = #{tinyspecification,jdbcType=VARCHAR},
+      Number = #{number,jdbcType=INTEGER},
+      CostPrice = #{costprice,jdbcType=DECIMAL},
+      SalePrice = #{saleprice,jdbcType=DECIMAL},
+      TinyDate = #{tinydate,jdbcType=DATE},
+      Comment = #{comment,jdbcType=VARCHAR}
+    where MTID = #{mtid,jdbcType=INTEGER}
+  </update>
+</mapper>

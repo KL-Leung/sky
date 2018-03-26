@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.supplier.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Supplier" >
+    <id column="SupplierId" property="supplierid" jdbcType="INTEGER" />
+    <result column="SupplierName" property="suppliername" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Contact" property="contact" jdbcType="VARCHAR" />
+    <result column="Explain" property="explain" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
+    <result column="GSPGMP" property="gspgmp" jdbcType="VARCHAR" />
+    <result column="Charter" property="charter" jdbcType="VARCHAR" />
+    <result column="OperatingPermit" property="operatingpermit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SupplierId, SupplierName, Phone, Contact, Explain, State, GSPGMP, Charter, OperatingPermit
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.SupplierExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where SupplierId = #{supplierid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier
+    where SupplierId = #{supplierid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.SupplierExample" >
+    delete from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Supplier" >
+    insert into supplier (SupplierId, SupplierName, Phone, 
+      Contact, Explain, State, 
+      GSPGMP, Charter, OperatingPermit
+      )
+    values (#{supplierid,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{explain,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{gspgmp,jdbcType=VARCHAR}, #{charter,jdbcType=VARCHAR}, #{operatingpermit,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Supplier" >
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        SupplierId,
+      </if>
+      <if test="suppliername != null" >
+        SupplierName,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="contact != null" >
+        Contact,
+      </if>
+      <if test="explain != null" >
+        Explain,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="gspgmp != null" >
+        GSPGMP,
+      </if>
+      <if test="charter != null" >
+        Charter,
+      </if>
+      <if test="operatingpermit != null" >
+        OperatingPermit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null" >
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null" >
+        #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="gspgmp != null" >
+        #{gspgmp,jdbcType=VARCHAR},
+      </if>
+      <if test="charter != null" >
+        #{charter,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingpermit != null" >
+        #{operatingpermit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.SupplierExample" resultType="java.lang.Integer" >
+    select count(*) from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update supplier
+    <set >
+      <if test="record.supplierid != null" >
+        SupplierId = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.suppliername != null" >
+        SupplierName = #{record.suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null" >
+        Contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.explain != null" >
+        Explain = #{record.explain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gspgmp != null" >
+        GSPGMP = #{record.gspgmp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.charter != null" >
+        Charter = #{record.charter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatingpermit != null" >
+        OperatingPermit = #{record.operatingpermit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update supplier
+    set SupplierId = #{record.supplierid,jdbcType=INTEGER},
+      SupplierName = #{record.suppliername,jdbcType=VARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Contact = #{record.contact,jdbcType=VARCHAR},
+      Explain = #{record.explain,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=VARCHAR},
+      GSPGMP = #{record.gspgmp,jdbcType=VARCHAR},
+      Charter = #{record.charter,jdbcType=VARCHAR},
+      OperatingPermit = #{record.operatingpermit,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Supplier" >
+    update supplier
+    <set >
+      <if test="suppliername != null" >
+        SupplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        Contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null" >
+        Explain = #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="gspgmp != null" >
+        GSPGMP = #{gspgmp,jdbcType=VARCHAR},
+      </if>
+      <if test="charter != null" >
+        Charter = #{charter,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingpermit != null" >
+        OperatingPermit = #{operatingpermit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SupplierId = #{supplierid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Supplier" >
+    update supplier
+    set SupplierName = #{suppliername,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Contact = #{contact,jdbcType=VARCHAR},
+      Explain = #{explain,jdbcType=VARCHAR},
+      State = #{state,jdbcType=VARCHAR},
+      GSPGMP = #{gspgmp,jdbcType=VARCHAR},
+      Charter = #{charter,jdbcType=VARCHAR},
+      OperatingPermit = #{operatingpermit,jdbcType=VARCHAR}
+    where SupplierId = #{supplierid,jdbcType=INTEGER}
+  </update>
+</mapper>

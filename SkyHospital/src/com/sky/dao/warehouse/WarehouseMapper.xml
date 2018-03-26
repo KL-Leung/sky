@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.warehouse.WarehouseMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Warehouse" >
+    <id column="WarehouseId" property="warehouseid" jdbcType="INTEGER" />
+    <result column="SAItemId" property="saitemid" jdbcType="INTEGER" />
+    <result column="GAID" property="gaid" jdbcType="INTEGER" />
+    <result column="InventoryFloor" property="inventoryfloor" jdbcType="INTEGER" />
+    <result column="Handling" property="handling" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    WarehouseId, SAItemId, GAID, InventoryFloor, Handling
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.WarehouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse
+    where WarehouseId = #{warehouseid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from warehouse
+    where WarehouseId = #{warehouseid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.WarehouseExample" >
+    delete from warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Warehouse" >
+    insert into warehouse (WarehouseId, SAItemId, GAID, 
+      InventoryFloor, Handling)
+    values (#{warehouseid,jdbcType=INTEGER}, #{saitemid,jdbcType=INTEGER}, #{gaid,jdbcType=INTEGER}, 
+      #{inventoryfloor,jdbcType=INTEGER}, #{handling,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Warehouse" >
+    insert into warehouse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warehouseid != null" >
+        WarehouseId,
+      </if>
+      <if test="saitemid != null" >
+        SAItemId,
+      </if>
+      <if test="gaid != null" >
+        GAID,
+      </if>
+      <if test="inventoryfloor != null" >
+        InventoryFloor,
+      </if>
+      <if test="handling != null" >
+        Handling,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warehouseid != null" >
+        #{warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="saitemid != null" >
+        #{saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="gaid != null" >
+        #{gaid,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryfloor != null" >
+        #{inventoryfloor,jdbcType=INTEGER},
+      </if>
+      <if test="handling != null" >
+        #{handling,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.WarehouseExample" resultType="java.lang.Integer" >
+    select count(*) from warehouse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update warehouse
+    <set >
+      <if test="record.warehouseid != null" >
+        WarehouseId = #{record.warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.saitemid != null" >
+        SAItemId = #{record.saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gaid != null" >
+        GAID = #{record.gaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.inventoryfloor != null" >
+        InventoryFloor = #{record.inventoryfloor,jdbcType=INTEGER},
+      </if>
+      <if test="record.handling != null" >
+        Handling = #{record.handling,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update warehouse
+    set WarehouseId = #{record.warehouseid,jdbcType=INTEGER},
+      SAItemId = #{record.saitemid,jdbcType=INTEGER},
+      GAID = #{record.gaid,jdbcType=INTEGER},
+      InventoryFloor = #{record.inventoryfloor,jdbcType=INTEGER},
+      Handling = #{record.handling,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Warehouse" >
+    update warehouse
+    <set >
+      <if test="saitemid != null" >
+        SAItemId = #{saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="gaid != null" >
+        GAID = #{gaid,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryfloor != null" >
+        InventoryFloor = #{inventoryfloor,jdbcType=INTEGER},
+      </if>
+      <if test="handling != null" >
+        Handling = #{handling,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where WarehouseId = #{warehouseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Warehouse" >
+    update warehouse
+    set SAItemId = #{saitemid,jdbcType=INTEGER},
+      GAID = #{gaid,jdbcType=INTEGER},
+      InventoryFloor = #{inventoryfloor,jdbcType=INTEGER},
+      Handling = #{handling,jdbcType=VARCHAR}
+    where WarehouseId = #{warehouseid,jdbcType=INTEGER}
+  </update>
+</mapper>

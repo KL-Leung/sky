@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.warehouse.WarehouseMapperCustom" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Warehouse" >
+    <id column="WarehouseId" property="warehouseid" jdbcType="INTEGER" />
+    <result column="SAItemId" property="saitemid" jdbcType="INTEGER" />
+    <result column="GAID" property="gaid" jdbcType="INTEGER" />
+    <result column="InventoryFloor" property="inventoryfloor" jdbcType="INTEGER" />
+    <result column="Handling" property="handling" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 	<select id="getWarehouseCount" resultType="Int">
+ 		select count(1) from warehouse
+ 	</select>
+ 
+	 <select id="getWarehouse" resultMap="BaseResultMap" >
+ 		select * from warehouse as w,saitem as s WHERE w.SAItemId=s.SAItemId
+	 </select>
+ 
+</mapper>

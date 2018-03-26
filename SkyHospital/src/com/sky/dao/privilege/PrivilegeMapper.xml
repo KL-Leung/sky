@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.privilege.PrivilegeMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Privilege" >
+    <id column="PID" property="pid" jdbcType="INTEGER" />
+    <result column="RID" property="rid" jdbcType="VARCHAR" />
+    <result column="MID" property="mid" jdbcType="INTEGER" />
+    <result column="Display" property="display" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PID, RID, MID, Display
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.PrivilegeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from privilege
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from privilege
+    where PID = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from privilege
+    where PID = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.PrivilegeExample" >
+    delete from privilege
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Privilege" >
+    insert into privilege (PID, RID, MID, 
+      Display)
+    values (#{pid,jdbcType=INTEGER}, #{rid,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, 
+      #{display,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Privilege" >
+    insert into privilege
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="rid != null" >
+        RID,
+      </if>
+      <if test="mid != null" >
+        MID,
+      </if>
+      <if test="display != null" >
+        Display,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.PrivilegeExample" resultType="java.lang.Integer" >
+    select count(*) from privilege
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update privilege
+    <set >
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rid != null" >
+        RID = #{record.rid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mid != null" >
+        MID = #{record.mid,jdbcType=INTEGER},
+      </if>
+      <if test="record.display != null" >
+        Display = #{record.display,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update privilege
+    set PID = #{record.pid,jdbcType=INTEGER},
+      RID = #{record.rid,jdbcType=VARCHAR},
+      MID = #{record.mid,jdbcType=INTEGER},
+      Display = #{record.display,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Privilege" >
+    update privilege
+    <set >
+      <if test="rid != null" >
+        RID = #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        MID = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="display != null" >
+        Display = #{display,jdbcType=BIT},
+      </if>
+    </set>
+    where PID = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Privilege" >
+    update privilege
+    set RID = #{rid,jdbcType=VARCHAR},
+      MID = #{mid,jdbcType=INTEGER},
+      Display = #{display,jdbcType=BIT}
+    where PID = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

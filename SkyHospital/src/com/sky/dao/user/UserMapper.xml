@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.user.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.User" >
+    <id column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="UName" property="uname" jdbcType="VARCHAR" />
+    <result column="LoginPwd" property="loginpwd" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="BIT" />
+    <result column="RID" property="rid" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="Photo" property="photo" jdbcType="VARCHAR" />
+    <result column="BortDate" property="bortdate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UID, UName, LoginPwd, Sex, RID, Phone, Address, Photo, BortDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where UID = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where UID = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.User" >
+    insert into user (UID, UName, LoginPwd, 
+      Sex, RID, Phone, Address, 
+      Photo, BortDate)
+    values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{loginpwd,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=BIT}, #{rid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{bortdate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="uname != null" >
+        UName,
+      </if>
+      <if test="loginpwd != null" >
+        LoginPwd,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="rid != null" >
+        RID,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+      <if test="address != null" >
+        Address,
+      </if>
+      <if test="photo != null" >
+        Photo,
+      </if>
+      <if test="bortdate != null" >
+        BortDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="bortdate != null" >
+        #{bortdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.uid != null" >
+        UID = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uname != null" >
+        UName = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginpwd != null" >
+        LoginPwd = #{record.loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        Sex = #{record.sex,jdbcType=BIT},
+      </if>
+      <if test="record.rid != null" >
+        RID = #{record.rid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null" >
+        Photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bortdate != null" >
+        BortDate = #{record.bortdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set UID = #{record.uid,jdbcType=VARCHAR},
+      UName = #{record.uname,jdbcType=VARCHAR},
+      LoginPwd = #{record.loginpwd,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=BIT},
+      RID = #{record.rid,jdbcType=VARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR},
+      Address = #{record.address,jdbcType=VARCHAR},
+      Photo = #{record.photo,jdbcType=VARCHAR},
+      BortDate = #{record.bortdate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.User" >
+    update user
+    <set >
+      <if test="uname != null" >
+        UName = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpwd != null" >
+        LoginPwd = #{loginpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="rid != null" >
+        RID = #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        Photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="bortdate != null" >
+        BortDate = #{bortdate,jdbcType=DATE},
+      </if>
+    </set>
+    where UID = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.User" >
+    update user
+    set UName = #{uname,jdbcType=VARCHAR},
+      LoginPwd = #{loginpwd,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=BIT},
+      RID = #{rid,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR},
+      Photo = #{photo,jdbcType=VARCHAR},
+      BortDate = #{bortdate,jdbcType=DATE}
+    where UID = #{uid,jdbcType=VARCHAR}
+  </update>
+</mapper>

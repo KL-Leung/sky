@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.sellaccount.SellaccountMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Sellaccount" >
+    <id column="SellAccountId" property="sellaccountid" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="SellDate" property="selldate" jdbcType="DATE" />
+    <result column="VipId" property="vipid" jdbcType="VARCHAR" />
+    <result column="Amount" property="amount" jdbcType="DECIMAL" />
+    <result column="ActuallyPaid" property="actuallypaid" jdbcType="DECIMAL" />
+    <result column="Due" property="due" jdbcType="DECIMAL" />
+    <result column="CutAmount" property="cutamount" jdbcType="DECIMAL" />
+    <result column="CutComment" property="cutcomment" jdbcType="VARCHAR" />
+    <result column="PayWay" property="payway" jdbcType="VARCHAR" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
+    <result column="ClosingDate" property="closingdate" jdbcType="DATE" />
+    <result column="Salesman" property="salesman" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SellAccountId, UID, SellDate, VipId, Amount, ActuallyPaid, Due, CutAmount, CutComment, 
+    PayWay, Comment, ClosingDate, Salesman
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.SellaccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sellaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sellaccount
+    where SellAccountId = #{sellaccountid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sellaccount
+    where SellAccountId = #{sellaccountid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.SellaccountExample" >
+    delete from sellaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Sellaccount" >
+    insert into sellaccount (SellAccountId, UID, SellDate, 
+      VipId, Amount, ActuallyPaid, 
+      Due, CutAmount, CutComment, 
+      PayWay, Comment, ClosingDate, 
+      Salesman)
+    values (#{sellaccountid,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{selldate,jdbcType=DATE}, 
+      #{vipid,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{actuallypaid,jdbcType=DECIMAL}, 
+      #{due,jdbcType=DECIMAL}, #{cutamount,jdbcType=DECIMAL}, #{cutcomment,jdbcType=VARCHAR}, 
+      #{payway,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{closingdate,jdbcType=DATE}, 
+      #{salesman,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Sellaccount" >
+    insert into sellaccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellaccountid != null" >
+        SellAccountId,
+      </if>
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="selldate != null" >
+        SellDate,
+      </if>
+      <if test="vipid != null" >
+        VipId,
+      </if>
+      <if test="amount != null" >
+        Amount,
+      </if>
+      <if test="actuallypaid != null" >
+        ActuallyPaid,
+      </if>
+      <if test="due != null" >
+        Due,
+      </if>
+      <if test="cutamount != null" >
+        CutAmount,
+      </if>
+      <if test="cutcomment != null" >
+        CutComment,
+      </if>
+      <if test="payway != null" >
+        PayWay,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+      <if test="closingdate != null" >
+        ClosingDate,
+      </if>
+      <if test="salesman != null" >
+        Salesman,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellaccountid != null" >
+        #{sellaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="selldate != null" >
+        #{selldate,jdbcType=DATE},
+      </if>
+      <if test="vipid != null" >
+        #{vipid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="actuallypaid != null" >
+        #{actuallypaid,jdbcType=DECIMAL},
+      </if>
+      <if test="due != null" >
+        #{due,jdbcType=DECIMAL},
+      </if>
+      <if test="cutamount != null" >
+        #{cutamount,jdbcType=DECIMAL},
+      </if>
+      <if test="cutcomment != null" >
+        #{cutcomment,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="closingdate != null" >
+        #{closingdate,jdbcType=DATE},
+      </if>
+      <if test="salesman != null" >
+        #{salesman,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.SellaccountExample" resultType="java.lang.Integer" >
+    select count(*) from sellaccount
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sellaccount
+    <set >
+      <if test="record.sellaccountid != null" >
+        SellAccountId = #{record.sellaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null" >
+        UID = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selldate != null" >
+        SellDate = #{record.selldate,jdbcType=DATE},
+      </if>
+      <if test="record.vipid != null" >
+        VipId = #{record.vipid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        Amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.actuallypaid != null" >
+        ActuallyPaid = #{record.actuallypaid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.due != null" >
+        Due = #{record.due,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cutamount != null" >
+        CutAmount = #{record.cutamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cutcomment != null" >
+        CutComment = #{record.cutcomment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payway != null" >
+        PayWay = #{record.payway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        Comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closingdate != null" >
+        ClosingDate = #{record.closingdate,jdbcType=DATE},
+      </if>
+      <if test="record.salesman != null" >
+        Salesman = #{record.salesman,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sellaccount
+    set SellAccountId = #{record.sellaccountid,jdbcType=VARCHAR},
+      UID = #{record.uid,jdbcType=VARCHAR},
+      SellDate = #{record.selldate,jdbcType=DATE},
+      VipId = #{record.vipid,jdbcType=VARCHAR},
+      Amount = #{record.amount,jdbcType=DECIMAL},
+      ActuallyPaid = #{record.actuallypaid,jdbcType=DECIMAL},
+      Due = #{record.due,jdbcType=DECIMAL},
+      CutAmount = #{record.cutamount,jdbcType=DECIMAL},
+      CutComment = #{record.cutcomment,jdbcType=VARCHAR},
+      PayWay = #{record.payway,jdbcType=VARCHAR},
+      Comment = #{record.comment,jdbcType=VARCHAR},
+      ClosingDate = #{record.closingdate,jdbcType=DATE},
+      Salesman = #{record.salesman,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Sellaccount" >
+    update sellaccount
+    <set >
+      <if test="uid != null" >
+        UID = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="selldate != null" >
+        SellDate = #{selldate,jdbcType=DATE},
+      </if>
+      <if test="vipid != null" >
+        VipId = #{vipid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        Amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="actuallypaid != null" >
+        ActuallyPaid = #{actuallypaid,jdbcType=DECIMAL},
+      </if>
+      <if test="due != null" >
+        Due = #{due,jdbcType=DECIMAL},
+      </if>
+      <if test="cutamount != null" >
+        CutAmount = #{cutamount,jdbcType=DECIMAL},
+      </if>
+      <if test="cutcomment != null" >
+        CutComment = #{cutcomment,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        PayWay = #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="closingdate != null" >
+        ClosingDate = #{closingdate,jdbcType=DATE},
+      </if>
+      <if test="salesman != null" >
+        Salesman = #{salesman,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SellAccountId = #{sellaccountid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Sellaccount" >
+    update sellaccount
+    set UID = #{uid,jdbcType=VARCHAR},
+      SellDate = #{selldate,jdbcType=DATE},
+      VipId = #{vipid,jdbcType=VARCHAR},
+      Amount = #{amount,jdbcType=DECIMAL},
+      ActuallyPaid = #{actuallypaid,jdbcType=DECIMAL},
+      Due = #{due,jdbcType=DECIMAL},
+      CutAmount = #{cutamount,jdbcType=DECIMAL},
+      CutComment = #{cutcomment,jdbcType=VARCHAR},
+      PayWay = #{payway,jdbcType=VARCHAR},
+      Comment = #{comment,jdbcType=VARCHAR},
+      ClosingDate = #{closingdate,jdbcType=DATE},
+      Salesman = #{salesman,jdbcType=VARCHAR}
+    where SellAccountId = #{sellaccountid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.saitem.SaitemMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.Saitem" >
+    <id column="SAItemId" property="saitemid" jdbcType="INTEGER" />
+    <result column="StorageAccountId" property="storageaccountid" jdbcType="VARCHAR" />
+    <result column="MedicineID" property="medicineid" jdbcType="INTEGER" />
+    <result column="SupplierId" property="supplierid" jdbcType="INTEGER" />
+    <result column="BatchNumber" property="batchnumber" jdbcType="VARCHAR" />
+    <result column="Number" property="number" jdbcType="INTEGER" />
+    <result column="Validity" property="validity" jdbcType="DATE" />
+    <result column="Respectively" property="respectively" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SAItemId, StorageAccountId, MedicineID, SupplierId, BatchNumber, Number, Validity, 
+    Respectively
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.SaitemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from saitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from saitem
+    where SAItemId = #{saitemid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from saitem
+    where SAItemId = #{saitemid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.SaitemExample" >
+    delete from saitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.Saitem" >
+    insert into saitem (SAItemId, StorageAccountId, MedicineID, 
+      SupplierId, BatchNumber, Number, 
+      Validity, Respectively)
+    values (#{saitemid,jdbcType=INTEGER}, #{storageaccountid,jdbcType=VARCHAR}, #{medicineid,jdbcType=INTEGER}, 
+      #{supplierid,jdbcType=INTEGER}, #{batchnumber,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{validity,jdbcType=DATE}, #{respectively,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.Saitem" >
+    insert into saitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="saitemid != null" >
+        SAItemId,
+      </if>
+      <if test="storageaccountid != null" >
+        StorageAccountId,
+      </if>
+      <if test="medicineid != null" >
+        MedicineID,
+      </if>
+      <if test="supplierid != null" >
+        SupplierId,
+      </if>
+      <if test="batchnumber != null" >
+        BatchNumber,
+      </if>
+      <if test="number != null" >
+        Number,
+      </if>
+      <if test="validity != null" >
+        Validity,
+      </if>
+      <if test="respectively != null" >
+        Respectively,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="saitemid != null" >
+        #{saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="storageaccountid != null" >
+        #{storageaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicineid != null" >
+        #{medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="batchnumber != null" >
+        #{batchnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="validity != null" >
+        #{validity,jdbcType=DATE},
+      </if>
+      <if test="respectively != null" >
+        #{respectively,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.SaitemExample" resultType="java.lang.Integer" >
+    select count(*) from saitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update saitem
+    <set >
+      <if test="record.saitemid != null" >
+        SAItemId = #{record.saitemid,jdbcType=INTEGER},
+      </if>
+      <if test="record.storageaccountid != null" >
+        StorageAccountId = #{record.storageaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicineid != null" >
+        MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplierid != null" >
+        SupplierId = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.batchnumber != null" >
+        BatchNumber = #{record.batchnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        Number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.validity != null" >
+        Validity = #{record.validity,jdbcType=DATE},
+      </if>
+      <if test="record.respectively != null" >
+        Respectively = #{record.respectively,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update saitem
+    set SAItemId = #{record.saitemid,jdbcType=INTEGER},
+      StorageAccountId = #{record.storageaccountid,jdbcType=VARCHAR},
+      MedicineID = #{record.medicineid,jdbcType=INTEGER},
+      SupplierId = #{record.supplierid,jdbcType=INTEGER},
+      BatchNumber = #{record.batchnumber,jdbcType=VARCHAR},
+      Number = #{record.number,jdbcType=INTEGER},
+      Validity = #{record.validity,jdbcType=DATE},
+      Respectively = #{record.respectively,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.Saitem" >
+    update saitem
+    <set >
+      <if test="storageaccountid != null" >
+        StorageAccountId = #{storageaccountid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicineid != null" >
+        MedicineID = #{medicineid,jdbcType=INTEGER},
+      </if>
+      <if test="supplierid != null" >
+        SupplierId = #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="batchnumber != null" >
+        BatchNumber = #{batchnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        Number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="validity != null" >
+        Validity = #{validity,jdbcType=DATE},
+      </if>
+      <if test="respectively != null" >
+        Respectively = #{respectively,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SAItemId = #{saitemid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.Saitem" >
+    update saitem
+    set StorageAccountId = #{storageaccountid,jdbcType=VARCHAR},
+      MedicineID = #{medicineid,jdbcType=INTEGER},
+      SupplierId = #{supplierid,jdbcType=INTEGER},
+      BatchNumber = #{batchnumber,jdbcType=VARCHAR},
+      Number = #{number,jdbcType=INTEGER},
+      Validity = #{validity,jdbcType=DATE},
+      Respectively = #{respectively,jdbcType=INTEGER}
+    where SAItemId = #{saitemid,jdbcType=INTEGER}
+  </update>
+</mapper>
