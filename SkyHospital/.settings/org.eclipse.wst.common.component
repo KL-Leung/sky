@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/generatorConfig"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/view_generatorConfig"/>
         <property name="context-root" value="/SkyHospital"/>
         <property name="java-output-path" value="/SkyHospital/WebRoot/WEB-INF/classes"/>
         <property name="me-merge-utility-modules" value="true"/>

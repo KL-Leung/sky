@@ -157,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a href="#formsubGSP" class="calendar">GSP报表</a>
             	<span class="arrow"></span>
             	<ul id="formsubGSP">
-            		<li><a href="${pageContext.request.contextPath }/jsp/GSPBuyDrugs.jsp">药品购进记录</a></li>
+            		<li><a href="${pageContext.request.contextPath }/gsp/showGSPDrugBuy.action">药品购进记录</a></li>
             		<li><a href="${pageContext.request.contextPath }/jsp/GSPBuyDrugAcceptance.jsp">药品验收记录</a></li>
             		<li><a href="${pageContext.request.contextPath }/jsp/GSPBuyTraditionalChineseMedicine.jsp">药品养护报表</a></li>
             		<li><a href="${pageContext.request.contextPath }/jsp/GSPBuyWesternMedicine.jsp">药品处理报表</a></li>
